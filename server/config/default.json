@@ -1,0 +1,6 @@
+{
+  "Online_mongoURI": "mongodb+srv://db1:QUIZOPHILE@db1@cluster0-msqjd.mongodb.net/db1?retryWrites=true&w=majority",
+  "Offline_mongoURI": "mongodb://localhost:27017/quizeophile",
+  "jwtSecret": "xxx",
+  "test": "test"
+}
