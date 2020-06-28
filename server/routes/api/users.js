@@ -5,26 +5,87 @@ const config = require("config");
 const bcrypt = require("bcrypt");
 const { check, validationResult } = require("express-validator");
 
+const accountSid = config.get("twilio_accountSID");
+const authToken = config.get("twilio_authToken");
+const serviceID = config.get("twilio_serviceID");
+const client = require("twilio")(accountSid, authToken);
+
 const User = require("../../models/User");
 
-// @route   POST api/users/signup
-// @desc    Register User
+// @route   POST api/users/sendotp
+// @desc    Send OTP to verify user Mobile Number
 // @access  Public
 router.post(
-  "/signup",
+  "/sendotp",
   [
-    check("name", "Name is Required").not().isEmpty(),
-    check("password", "Please enter a valid Password").isLength({ min: 6 }),
-    check("mobile", "Please Enter valid Mobile Number").isMobilePhone(),
+    check("mobile", "Enter Valid Mobile Number")
+      .isMobilePhone()
+      .isLength({ min: 10, max: 10 }),
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ error: errors.array() });
     }
-    const { name, mobile, password } = req.body;
+
+    const mobile = req.body.mobile;
+
     try {
+      // Check Unique Mobile Number
       let user = await User.findOne({ mobile });
+      if (user) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "User already Exists" }] });
+      }
+
+      const data = await client.verify
+        .services(serviceID)
+        .verifications.create({ to: `+91${mobile}`, channel: "sms" });
+
+      console.log("OTP send to " + mobile);
+      res.status(200).send({ msg: `OTP send on ${mobile} mobile number` });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+    }
+  }
+);
+
+// @route   POST api/users/signup
+// @desc    Verify OTP then Register User
+// @access  Public
+router.post(
+  "/signup",
+  [
+    check("name", "Name is Required").not().isEmpty(),
+    check("password", "Please enter a valid Password").isLength({ min: 6 }),
+    check("mobile", "Please Enter valid Mobile Number")
+      .isMobilePhone()
+      .isLength({ min: 10, max: 10 }),
+    check("otp", "pls enter valid OTP").isLength({ min: 6, max: 6 }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ error: errors.array() });
+    }
+
+    const { name, mobile, password, otp } = req.body;
+
+    try {
+      // OTP verification
+      const data = await client.verify
+        .services(serviceID)
+        .verificationChecks.create({
+          to: `+91${mobile}`,
+          code: otp,
+        });
+      if (!data.valid) {
+        return res.status(400).json({ errors: [{ msg: "Invalid OTP" }] });
+      }
+
+      let user = await User.findOne({ mobile }); // Not necessary bcz already verify in sendotp router post
       if (user) {
         return res
           .status(400)
@@ -96,5 +157,8 @@ router.post(
     }
   }
 );
+// @route   POST api/users/forgatepassword
+// @desc    Send OTP to reset password
+// @access  Public
 
 module.exports = router;

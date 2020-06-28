@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const config = require("config");
 const offline_db = config.get("Offline_mongoURI");
-const online_db = config.get("Online_mongoURI");
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(online_db, {
+    await mongoose.connect(offline_db, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
