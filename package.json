@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
@@ -12,10 +15,16 @@
     "bcrypt": "^5.0.0",
     "config": "^3.3.1",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "express-validator": "^6.6.0",
     "jsonwebtoken": "^8.5.1",
+    "materialize-css": "^1.0.0",
     "mongoose": "^5.9.20",
+    "nodemailer": "^6.4.10",
     "twilio": "^3.47.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
   }
 }

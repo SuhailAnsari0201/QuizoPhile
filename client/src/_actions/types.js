@@ -1,0 +1,41 @@
+export const SET_ALERT = "SET_ALERT";
+export const REMOVE_ALERT = "REMOVE_ALERT";
+
+export const OTP_SEND = "OTP_SEND";
+export const OTP_INVALID = "OTP_INVALID";
+
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAIL = "REGISTER_FAIL";
+
+export const USER_LOADED = "USER_LOADED";
+export const ADMIN_LOADED = "ADMIN_LOADED";
+export const AUTH_ERROR = "AUTH_ERROR";
+
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+
+export const CLEAR_PROFILE = "CLEAR_PROFILE";
+export const LOGOUT = "LOGOUT";
+
+export const MAIL_SEND_SUCCESS = "MAIL_SEND_SUCCESS";
+export const MAIL_SEND_FAIL = "MAIL_SEND_FAIL";
+
+export const VALID_RESET_LINK = "VALID_RESET_LINK";
+export const INVALID_RESET_LINK = "INVALID_RESET_LINK";
+
+export const RESET_PASSWORD_SUCCESS = "RESET_PASSWORD_SUCCESS";
+export const RESET_PASSWORD_FAIL = "RESET_PASSWORD_FAIL";
+
+export const GET_PROFILE = "GET_PROFILE";
+export const PROFILE_ERROR = "PROFILE_ERROR";
+
+export const CREATE_EXAM_SUCCESS = "CREATE_EXAM_SUCCESS";
+export const CREATE_EXAM_FAIL = "CREATE_EXAM_FAIL";
+
+export const START_EXAM_SUCCESS = "START_EXAM_SUCCESS";
+export const START_EXAM_FAIL = "START_EXAM_FAIL";
+
+export const CLEAR_QUIZ = "CLEAR_QUIZ";
+
+export const SET_EXAM_RESULT_PASS = "SET_EXAM_RESULT_PASS";
+export const SET_EXAM_RESULT_FAIL = "SET_EXAM_RESULT_FAIL";

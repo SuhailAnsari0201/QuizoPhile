@@ -5,7 +5,7 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 
 const User = require("../../models/User");
-const UserProfile = require("../../models/UserProfile");
+const Profile = require("../../models/Profile");
 
 // @route   GET api/profile/me
 // @desc    GET Current user profile
@@ -60,7 +60,10 @@ router.post("/", auth, async (req, res) => {
 
   try {
     // Profile exists then update profile
+    console.log("1");
     let profile = await Profile.findOne({ user: req.user.id });
+    console.log("2");
+
     if (profile) {
       profile = await Profile.findOneAndUpdate(
         { user: req.user.id },

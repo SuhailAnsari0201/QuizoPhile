@@ -1,8 +1,11 @@
 {
   "Offline_mongoURI": "mongodb://localhost:27017/quizeophile_react",
   "jwtSecret": "xxx",
+  "JWT_ACCOUNT_ACTIVATE": "xxx-00",
   "test": "test",
   "twilio_accountSID": "AC4da1032df67f60b2e083429966c18eb0",
   "twilio_authToken": "8b0357a4fd9ec8a556c732a511d3e70d",
-  "twilio_serviceID": "VAa732fe6ca34e88437fef0f9838083c1e"
+  "twilio_serviceID": "VAa732fe6ca34e88437fef0f9838083c1e",
+  "emailID": "suhailansari2612@gmail.com",
+  "emailPassword": "snojqjabmgyrrrif"
 }

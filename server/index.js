@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const connectDB = require("./config/db");
+const connectDB = require("./db/connectDB");
 
 const app = express();
 
@@ -16,7 +16,12 @@ app.get("/", (req, res) => {
 });
 
 // Define routes
+app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/admin", require("./routes/api/admin"));
 app.use("/api/users", require("./routes/api/users"));
+app.use("/api/profile", require("./routes/api/profile"));
+app.use("/api/exam", require("./routes/api/exam"));
+app.use("/api/forgotPassword", require("./routes/api/forgotPassword"));
 
 const PORT = 5000;
 
